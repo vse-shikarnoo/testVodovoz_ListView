@@ -5,21 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 
-class MainFragment:Fragment() {
+class MainFragment:Fragment(R.layout.fragment_main) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getCategories()
 
+        viewModel.currentCategory.observe(viewLifecycleOwner){
+            viewModel.getProductsByCategory()
+        }
     }
 }

@@ -17,8 +17,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
     }
 
     buildTypes {
@@ -37,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -49,6 +50,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // architecture components
+    implementation (libs.androidx.core.ktx)
     implementation (libs.lifecycle.viewmodel.savedstate)
 
     implementation (libs.retrofit)
@@ -69,4 +72,24 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
 
     ksp(libs.androidx.room.room.compiler2)
+
+    //View binding delegate
+    implementation ("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
+
+    val nav_version = "2.7.7"
+
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // Feature module support for Fragments
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+
 }

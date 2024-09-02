@@ -28,21 +28,25 @@ class MainViewModel : ViewModel() {
     fun getCategories() {
         viewModelScope.launch {
             try {
-                categoriesLD.postValue(repository.getCategories())
-                currentCategoryLD.postValue(categoriesLD.value?.first())
-                currentCategory.value?.let {
-                    getProductsByCategory(it)
-                }
+                val result = repository.getCategories()
+                categoriesLD.postValue(result)
+                currentCategoryLD.postValue(result.first())
+
+                Log.d(TAG, "getCategories: ${repository.getCategories()}")
             } catch (t: Throwable) {
                 Log.e(TAG, "getCategories: ", t)
             }
         }
     }
 
-    fun getProductsByCategory(category: Category) {
+    fun getProductsByCategory() {
+        Log.d(TAG, "getProductsByCategory: category = ${currentCategory.value?.name}")
         viewModelScope.launch {
             try {
-                productsLD.postValue(repository.getProductsByCategory(category))
+                productsLD.postValue(repository.getProductsByCategory(currentCategory.value!!))
+                Log.d(TAG, "getProductsByCategory: ${repository.getProductsByCategory(
+                    currentCategory.value!!
+                )}")
             } catch (t: Throwable) {
                 Log.e(TAG, "getProductsByCategory: ", t)
             }
