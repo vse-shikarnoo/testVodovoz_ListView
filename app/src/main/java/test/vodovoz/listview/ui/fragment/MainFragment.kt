@@ -1,10 +1,11 @@
 package test.vodovoz.listview.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import test.vodovoz.listview.R
@@ -33,22 +34,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun observe() {
         viewModel.categories.observe(viewLifecycleOwner) {
-            Log.d("TAG", "observe categories: $it")
+            bindErrorState(false)
             categoriesListAdapter.submitList(it)
             viewModel.setCurrentCategory(it.first())
         }
         viewModel.currentCategory.observe(viewLifecycleOwner) {
             viewModel.getProductsByCategory()
-            binding.categoryTv.text = it.name
             categoriesListAdapter.notifyDataSetChanged()
         }
         viewModel.error.observe(viewLifecycleOwner) {
+            binding.loadingLayout.progressBar.visibility = View.GONE
             bindErrorState(true)
         }
         viewModel.products.observe(viewLifecycleOwner) {
-            Log.d("TAG", "observe products: $it")
             productsListAdapter.submitList(it)
-            bindErrorState(false)
             binding.productListRv.scrollToPosition(0)
         }
     }
@@ -60,6 +59,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             adapter = productsListAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            val itemDecorator =
+                DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL)
+            itemDecorator.setDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.custom_horizontal_divider
+                )!!
+            )
+            addItemDecoration(itemDecorator)
         }
 
         categoriesListAdapter = CategoriesListAdapter {
@@ -75,14 +83,32 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun listeners() {
-
+        with(binding) {
+            loadingLayout.retryBtn.setOnClickListener {
+                binding.loadingLayout.progressBar.visibility = View.VISIBLE
+                viewModel.getCategories()
+            }
+        }
     }
 
     private fun bindErrorState(flag: Boolean) {
-        if (flag) {
+        with(binding) {
+            if (flag) {
+                loadingLayout.errorTv.visibility = View.VISIBLE
+                loadingLayout.retryBtn.visibility = View.VISIBLE
 
-        } else {
 
+                categoryListRv.visibility = View.GONE
+                productListRv.visibility = View.GONE
+            } else {
+                loadingLayout.errorTv.visibility = View.GONE
+                loadingLayout.retryBtn.visibility = View.GONE
+
+                loadingLayout.progressBar.visibility = View.VISIBLE
+                categoryListRv.visibility = View.VISIBLE
+                productListRv.visibility = View.VISIBLE
+            }
+            loadingLayout.progressBar.visibility = View.GONE
         }
     }
 }

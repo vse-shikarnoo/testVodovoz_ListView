@@ -52,19 +52,19 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // architecture components
-    implementation (libs.androidx.core.ktx)
-    implementation (libs.lifecycle.viewmodel.savedstate)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.lifecycle.viewmodel.savedstate)
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.moshi)
-    implementation (libs.moshi)
-    implementation (libs.squareup.moshi.kotlin)
-    implementation (libs.retrofit2.retrofit.mock)
-    implementation (libs.logging.interceptor)
-    implementation (libs.retrofit2.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi)
+    implementation(libs.squareup.moshi.kotlin)
+    implementation(libs.retrofit2.retrofit.mock)
+    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit2.converter.gson)
 
-    implementation (libs.jackson.module.kotlin)
-    implementation (libs.gson)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.gson)
     implementation(libs.json)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(kotlin("test"))
@@ -75,7 +75,7 @@ dependencies {
     ksp(libs.androidx.room.room.compiler2)
 
     //View binding delegate
-    implementation ("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
+    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
 
     val nav_version = "2.7.7"
 
@@ -83,8 +83,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     // Views/Fragments integration
-    implementation("androidx.navigation:navigation-fragment:$nav_version")
-    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     // Feature module support for Fragments
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
@@ -93,5 +93,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

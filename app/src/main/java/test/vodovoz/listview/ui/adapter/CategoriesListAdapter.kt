@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import test.vodovoz.listview.R
 import test.vodovoz.listview.databinding.ItemCategoryListBinding
 import test.vodovoz.listview.model.Category
 
@@ -50,11 +51,15 @@ class CategoriesListAdapter(
         fun bind(category: Category) {
             with(binding) {
                 nameTv.text = category.name
-                nameTv.textSize = if (category.isCurrent){
-                    32f
-                }else{
-                    16f
-                }
+                nameTv.setTextColor(
+                    root.resources.getColor(
+                        if (category.isCurrent) {
+                            R.color.blue
+                        } else {
+                            R.color.black
+                        }
+                    )
+                )
             }
         }
     }

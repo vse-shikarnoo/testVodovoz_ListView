@@ -41,7 +41,10 @@ class ProductsListAdapter :
 
             fun bind(product: Product){
                 with(binding){
-                    nameTv.text = product.id.toString()
+                    priceTv.text = root.resources.getString(
+                        R.string.product_price,
+                        product.prices.first().price.toString()
+                    )
                     val imagePath = root.context.getString(R.string.picture_base_url)+product.picture
                     Glide.with(root)
                         .load(imagePath)
