@@ -1,16 +1,13 @@
 package test.vodovoz.listview.vm
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import test.vodovoz.listview.model.Category
-import test.vodovoz.listview.repository.MainRepository
 import test.vodovoz.listview.model.Product
-
-private const val TAG = "MainViewModel"
+import test.vodovoz.listview.repository.MainRepository
 
 class MainViewModel : ViewModel() {
 
@@ -36,30 +33,18 @@ class MainViewModel : ViewModel() {
             try {
                 val result = repository.getCategories()
                 categoriesLD.postValue(result)
-
-                Log.d(TAG, "getCategories: ${repository.getCategories()}")
             } catch (t: Throwable) {
                 errorLD.postValue(Unit)
-                Log.e(TAG, "getCategories: ", t)
             }
         }
     }
 
     fun getProductsByCategory() {
-        Log.d(TAG, "getProductsByCategory: category = ${currentCategory.value?.name}")
         viewModelScope.launch {
             try {
                 productsLD.postValue(repository.getProductsByCategory(currentCategory.value!!))
-                Log.d(
-                    TAG, "getProductsByCategory: ${
-                        repository.getProductsByCategory(
-                            currentCategory.value!!
-                        )
-                    }"
-                )
             } catch (t: Throwable) {
                 errorLD.postValue(Unit)
-                Log.e(TAG, "getProductsByCategory: ", t)
             }
         }
     }

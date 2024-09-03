@@ -1,9 +1,8 @@
 package test.vodovoz.listview.repository
 
-import android.util.Log
 import test.vodovoz.listview.model.Category
-import test.vodovoz.listview.remote.NetworkService
 import test.vodovoz.listview.model.Product
+import test.vodovoz.listview.remote.NetworkService
 
 class MainRepository {
 
@@ -15,7 +14,7 @@ class MainRepository {
         return categories
     }
 
-    suspend fun getProductsByCategory(category: Category): List<Product> {
+    fun getProductsByCategory(category: Category): List<Product> {
         categories.forEach {
             if(it.name == category.name){
                 return it.productsData
