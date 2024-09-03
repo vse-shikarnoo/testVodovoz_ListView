@@ -1,10 +1,10 @@
-package test.vodovoz.listview
+package test.vodovoz.listview.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
+import test.vodovoz.listview.model.NetworkResponse
 
 interface NetworkService {
 

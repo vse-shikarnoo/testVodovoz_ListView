@@ -1,4 +1,4 @@
-package test.vodovoz.listview
+package test.vodovoz.listview.model
 
 import com.google.gson.annotations.SerializedName
 

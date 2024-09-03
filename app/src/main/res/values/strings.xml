@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ListView</string>
+    <string name="picture_base_url">https://szorin.vodovoz.ru</string>
 </resources>

@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="test.vodovoz.listview.MainFragment"
+        android:name="test.vodovoz.listview.ui.fragment.MainFragment"
         android:label="MainFragment" />
 </navigation>
